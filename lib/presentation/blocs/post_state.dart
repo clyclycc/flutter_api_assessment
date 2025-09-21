@@ -4,6 +4,7 @@ abstract class PostState extends Equatable {
   @override
   List<Object?> get props => [];
 }
+// Equatable class for compare objects
 
 class PostInitial extends PostState {}
 

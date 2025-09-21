@@ -8,11 +8,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() {
   final remoteDataSource = RemoteDataSource();
+  // fetching data
   final repository = PostRepositoryImpl(remoteDataSource);
+  // Encapsulate the data source into a Repository
   runApp(MyApp(repository: repository));
 }
 
 class MyApp extends StatelessWidget {
+  // UI does not require statefulWidget
   final PostRepositoryImpl repository;
   const MyApp({super.key, required this.repository});
 
@@ -30,5 +33,6 @@ class MyApp extends StatelessWidget {
         ),
       ),
     );
+  //   provide Repository to the whole widget
   }
 }

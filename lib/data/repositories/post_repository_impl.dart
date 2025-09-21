@@ -12,3 +12,6 @@ class PostRepositoryImpl implements PostRepository {
     return remoteDataSource.fetchPosts();
   }
 }
+
+
+ // Connecting domain and data

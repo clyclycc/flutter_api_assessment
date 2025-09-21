@@ -18,3 +18,4 @@ class Post {
     body: json['body'] as String,
   );
 }
+// defining data type

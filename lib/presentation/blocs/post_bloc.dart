@@ -12,6 +12,7 @@ class PostBloc extends Bloc<PostEvent, PostState> {
   PostBloc({required this.repository}) : super(PostInitial()) {
     on<FetchPostsEvent>((event, emit) async {
       emit(PostLoading());
+      // loading data, updating state
       try {
         final posts = await repository.getPosts();
         emit(PostLoaded(posts: posts));
@@ -20,4 +21,6 @@ class PostBloc extends Bloc<PostEvent, PostState> {
       }
     });
   }
+
+//   constructor, handling event
 }

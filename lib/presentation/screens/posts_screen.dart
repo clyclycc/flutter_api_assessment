@@ -12,11 +12,12 @@ class PostsScreen extends StatefulWidget {
 
 class _PostsScreenState extends State<PostsScreen> {
   late PostBloc _bloc;
-
+// late initialization screen
   @override
   void initState() {
     super.initState();
     _bloc = context.read<PostBloc>();
+
     _bloc.add(FetchPostsEvent());
   }
 
@@ -28,7 +29,9 @@ class _PostsScreenState extends State<PostsScreen> {
         builder: (context, state) {
           if (state is PostLoading || state is PostInitial) {
             return const Center(child: CircularProgressIndicator());
-          } else if (state is PostError) {
+          }
+          // loading screen
+          else if (state is PostError) {
             return Center(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -40,6 +43,7 @@ class _PostsScreenState extends State<PostsScreen> {
                     icon: const Icon(Icons.refresh),
                     label: const Text('Retry'),
                   ),
+                //   error screen
                 ],
               ),
             );
@@ -63,9 +67,11 @@ class _PostsScreenState extends State<PostsScreen> {
                 );
               },
             );
+          //   Run though Post list, using listview to render, card + listtitle
           } else {
             return const SizedBox.shrink();
           }
+        //   Prevent UI break, return empty widget
         },
       ),
     );
@@ -92,5 +98,6 @@ class PostDetailScreen extends StatelessWidget {
         ),
       ),
     );
+  //   showing details of the post
   }
 }

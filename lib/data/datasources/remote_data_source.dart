@@ -6,14 +6,14 @@ class RemoteDataSource {
   final Dio dio;
 
   RemoteDataSource({Dio? dio}) : dio = dio ?? Dio() {
-    // 配置默认请求头
+    // defaults.headers
     this.dio.options.headers = {
       'Content-Type': 'application/json; charset=UTF-8',
       'Accept': 'application/json',
-      'User-Agent': 'Flutter-App/1.0.0 (Mobile Application)',
+      'User-Agent': 'Flutter-App/DioBrandon (Mobile Application)',
     };
 
-    // 设置超时时间
+    // setting timeout
     this.dio.options.connectTimeout = const Duration(seconds: 10);
     this.dio.options.receiveTimeout = const Duration(seconds: 10);
     this.dio.options.sendTimeout = const Duration(seconds: 10);
@@ -39,7 +39,7 @@ class RemoteDataSource {
         throw NetworkException('HTTP Error: ${response.statusCode}');
       }
     } on DioException catch (e) {
-      // 详细的错误处理
+      // error handling
       if (e.response?.statusCode == 403) {
         throw NetworkException('Access denied: The server refused the request. This might be due to rate limiting or blocked user agent.');
       }
