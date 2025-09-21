@@ -45,6 +45,7 @@ class _PostsScreenState extends State<PostsScreen> {
                   ),
                 //   error screen
                 ],
+              //   retry button
               ),
             );
           } else if (state is PostLoaded) {
