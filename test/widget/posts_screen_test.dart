@@ -36,10 +36,13 @@ void main() {
 
     // initial frame with CircularProgressIndicator
     await tester.pump(); // start
+    // bloc loading
     await tester.pump(const Duration(seconds: 1)); // allow future to resolve
 
     expect(find.byType(ListView), findsOneWidget);
     expect(find.text('Test 1'), findsOneWidget);
     expect(find.text('Test 2'), findsOneWidget);
+
+  //   expect showing data in listview
   });
 }

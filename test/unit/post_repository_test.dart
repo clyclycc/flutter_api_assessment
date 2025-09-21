@@ -20,6 +20,7 @@ void main() {
       Post(id: 1, userId: 1, title: 't1', body: 'b1'),
     ];
 
+    // fake data sourse
     when(() => mockRemote.fetchPosts()).thenAnswer((_) async => posts);
 
     final result = await repository.getPosts();
@@ -32,4 +33,5 @@ void main() {
     when(() => mockRemote.fetchPosts()).thenThrow(Exception('fail'));
     expect(() => repository.getPosts(), throwsA(isA<Exception>()));
   });
+//   check exception
 }
