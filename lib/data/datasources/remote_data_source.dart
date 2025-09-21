@@ -5,20 +5,45 @@ import '../../utils/network_exception.dart';
 class RemoteDataSource {
   final Dio dio;
 
-  RemoteDataSource({Dio? dio}) : dio = dio ?? Dio();
+  RemoteDataSource({Dio? dio}) : dio = dio ?? Dio() {
+    // 配置默认请求头
+    this.dio.options.headers = {
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Accept': 'application/json',
+      'User-Agent': 'Flutter-App/1.0.0 (Mobile Application)',
+    };
+
+    // 设置超时时间
+    this.dio.options.connectTimeout = const Duration(seconds: 10);
+    this.dio.options.receiveTimeout = const Duration(seconds: 10);
+    this.dio.options.sendTimeout = const Duration(seconds: 10);
+  }
 
   Future<List<Post>> fetchPosts() async {
     try {
-      final response = await dio.get('https://jsonplaceholder.typicode.com/posts');
+      final response = await dio.get(
+        'https://jsonplaceholder.typicode.com/posts',
+        options: Options(
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'User-Agent': 'Mozilla/5.0 (compatible; FlutterApp/1.0)',
+          },
+        ),
+      );
+
       if (response.statusCode == 200) {
         final List data = response.data as List;
         return data.map((e) => Post.fromJson(e as Map<String, dynamic>)).toList();
       } else {
-        throw NetworkException('Status code: ${response.statusCode}');
+        throw NetworkException('HTTP Error: ${response.statusCode}');
       }
-    } on DioException catch (e) {  //  DioException
-      //
-      throw NetworkException(e.message ?? 'Unknown Dio error');
+    } on DioException catch (e) {
+      // 详细的错误处理
+      if (e.response?.statusCode == 403) {
+        throw NetworkException('Access denied: The server refused the request. This might be due to rate limiting or blocked user agent.');
+      }
+      throw NetworkException(e.message ?? 'Network error occurred');
     } catch (e) {
       throw NetworkException('Unexpected error: $e');
     }

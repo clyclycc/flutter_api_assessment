@@ -29,6 +29,7 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   dio: ^5.0.0
+#  more functional using dio
   flutter_bloc: ^8.1.0
   equatable: ^2.0.0
 #added dependencies
